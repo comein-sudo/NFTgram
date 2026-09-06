@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NFTGram</title>
+<style>
+body{background:#090912;color:white;font-family:Arial;padding:15px}.wrap{max-width:500px;margin:auto}.top{display:flex;justify-content:space-between;background:#181824;padding:15px;border-radius:25px}.star{color:#ffd54a}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card,.case{background:#181824;border-radius:22px;padding:15px;text-align:center;margin-top:10px}.icon{font-size:55px}button{background:#ffd54a;border:0;border-radius:20px;padding:12px;width:100%}.Mythic{color:#ff55ff}.Legendary{color:#ffd700}.Epic{color:#aa55ff}.Rare{color:#55aaff}.Common{color:#aaa}
+</style></head>
+<body><div class="wrap">
+<div class="top"><b>🎁 NFTGram</b><div class="star">⭐<span id="bal">1000</span>➕</div></div>
+<h2>🎰 Кейсы</h2><div id="cases"></div>
+<h2>💎 NFT</h2><div id="nfts" class="grid"></div>
+</div>
+<script>
+let stars=1000;
+const nfts=[
+["🐸","Plush Pepe","Mythic",250000],
+["💗","Heart Locket","Legendary",5000],
+["🧢","Durov Cap","Legendary",8000],
+["🐱","Scared Cat","Epic",1500],
+["👜","Loot Bag","Epic",2000],
+["⚔️","Light Sword","Legendary",4000],
+["📖","Timeless Book","Rare",700],
+["✨","Party Sparkler","Rare",600],
+["🧸","Toy Bear","Common",300]
+];
+const cases=[
+["🧟 Бомж кейс",100],
+["😐 Нормис кейс",500],
+["👑 Элит бокс",1500],
+["🎲 50/50",1000],
+["🟣 Опка",1000]
+];
+function openCase(i){
+if(stars<cases[i][1])return alert("Нет ⭐");
+stars-=cases[i][1];bal.innerHTML=stars;
+let r=Math.random()*100;
+if(i==3&&r>38)return alert("💀 Пусто");
+let x=r<0.05?nfts[0]:nfts[Math.floor(Math.random()*nfts.length)];
+alert("🎉 Получено "+x[0]+" "+x[1]+" "+x[2]);
+}
+cases.forEach((c,i)=>cases.innerHTML+=`<div class="case"><h3>${c[0]}</h3><p>⭐ ${c[1]}</p><button onclick="openCase(${i})">Открыть</button></div>`);
+nfts.forEach(x=>nftsEl=nfts.innerHTML+=`<div class="card"><div class="icon">${x[0]}</div><b>${x[1]}</b><p class="${x[2]}">${x[2]}</p><small>⭐${x[3]}</small></div>`);
+</script></body></html>
