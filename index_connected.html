@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NFTGram</title>
+<style>
+body{background:#0b0b12;color:white;font-family:Arial;text-align:center;padding:20px}
+button{background:#ffd54a;border:0;border-radius:20px;padding:14px;font-weight:bold}
+.card{display:inline-block;background:#181824;border-radius:20px;padding:15px;margin:8px;width:130px}
+.nft{font-size:60px}
+</style>
+</head>
+<body>
+<h1>🎁 NFTGram</h1>
+<h2>⭐ <span id="stars">0</span></h2>
+
+<button onclick="buyStars()">Купить 100 виртуальных ⭐ за 5 Telegram Stars</button>
+
+<div id="gifts"></div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const tg=window.Telegram.WebApp;
+tg.ready();
+
+const gifts=[
+["🐸","Plush Pepe","Mythic"],
+["🚀","Rocket","Epic"],
+["📖","Timeless Book","Rare"],
+["🧸","Toy Bear","Common"]
+];
+
+document.getElementById("gifts").innerHTML=gifts.map(x=>
+`<div class="card"><div class="nft">${x[0]}</div><b>${x[1]}</b><p>${x[2]}</p></div>`
+).join("");
+
+async function buyStars(){
+ let user=tg.initDataUnsafe.user;
+
+ let r=await fetch("https://YOUR_SERVER/api/buy",{
+ method:"POST",
+ headers:{"Content-Type":"application/json"},
+ body:JSON.stringify({user_id:user.id})
+ });
+
+ let data=await r.json();
+ tg.openInvoice(data.invoice);
+}
+</script>
+</body>
+</html>
